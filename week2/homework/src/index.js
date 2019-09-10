@@ -3,6 +3,14 @@
 // TODO: Write the homework code in this file
 const fs = require('fs');
 
+const readHelp = fs.readFileSync('help.txt', 'utf8', (data, err) => {
+  if (data) {
+    console.log(data);
+  }
+  else if (err) {
+    throw err;
+  }
+});
 const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
   if (data) {
     console.log(data);
@@ -12,22 +20,12 @@ const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
     console.log('failed!');
   }
 });
-// console.log(readList);
+
 const listArray = [];
 listArray.push(readList);
-// console.log(listArray);
 
-const readHelp = fs.readFileSync('help.txt', 'utf8', (data, err) => {
-  if (data) {
-    console.log(data);
-  }
-  else if (err) {
-    throw err;
-  }
-});
-
-function addList(todos) {
-  fs.writeFile('list.txt', todos, (data, err) => {
+function addList(myList, todos) {
+  fs.writeFile('list.txt', myList, (data, err) => {
     if (data) {
       console.log('New task added!');
     }
@@ -36,7 +34,7 @@ function addList(todos) {
       console.log('Failed!');
     }
   });
-  listArray.push(todos);
+  myList.push(todos);
 }
 
 const command = process.argv[2];
@@ -50,7 +48,7 @@ function main() {
     console.log(readList);
   }
   else if (command === 'add') {
-    addList(task);
+    addList(listArray, task);
   }
 }
 main();
