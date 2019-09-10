@@ -12,6 +12,10 @@ const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
     console.log('failed!');
   }
 });
+// console.log(readList);
+const listArray = [];
+listArray.push(readList);
+// console.log(listArray);
 
 const readHelp = fs.readFileSync('help.txt', 'utf8', (data, err) => {
   if (data) {
@@ -32,6 +36,7 @@ function addList(todos) {
       console.log('Failed!');
     }
   });
+  listArray.push(todos);
 }
 
 const command = process.argv[2];
