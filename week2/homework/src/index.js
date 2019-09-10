@@ -34,7 +34,8 @@ function addList(todos) {
   });
 }
 
-const command = process.argv[2]; // add your todo list in command line
+const command = process.argv[2];
+const task = process.argv[3];
 
 function main() {
   if (command === 'help') {
@@ -44,7 +45,7 @@ function main() {
     console.log(readList);
   }
   else if (command === 'add') {
-    addList(command);
+    addList(task);
   }
 }
 main();
