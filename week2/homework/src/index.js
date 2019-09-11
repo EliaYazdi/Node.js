@@ -48,7 +48,7 @@ function removeList(myList, todos) {
       console.log('Failed!');
     }
   });
-  myList.splice((todos - 1), 1);
+  myList.splice((todos - 1), 1);// doesn't work!
 }
 
 function reset() {
