@@ -3,6 +3,14 @@
 // TODO: Write the homework code in this file
 const fs = require('fs');
 
+const readHelp = fs.readFileSync('help.txt', 'utf8', (data, err) => {
+  if (data) {
+    console.log(data);
+  }
+  else if (err) {
+    throw err;
+  }
+});
 const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
   if (data) {
     console.log(data);
@@ -12,22 +20,12 @@ const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
     console.log('failed!');
   }
 });
-// console.log(readList);
 const listArray = [];
 listArray.push(readList);
-// console.log(listArray);
+listArray.join('\n');
 
-const readHelp = fs.readFileSync('help.txt', 'utf8', (data, err) => {
-  if (data) {
-    console.log(data);
-  }
-  else if (err) {
-    throw err;
-  }
-});
-
-function addList(todos) {
-  fs.writeFile('list.txt', todos, (data, err) => {
+function addList(myList, todos) {
+  fs.writeFile('list.txt', myList, (data, err) => {
     if (data) {
       console.log('New task added!');
     }
@@ -36,7 +34,33 @@ function addList(todos) {
       console.log('Failed!');
     }
   });
-  listArray.push(todos);
+  myList.push(todos);
+  return listArray.join('\r\n');
+}
+
+function removeList(myList, todos) {
+  fs.writeFile('list.txt', myList, (data, err) => {
+    if (data) {
+      console.log('New task added!');
+    }
+    else if (err) {
+      throw err;
+      console.log('Failed!');
+    }
+  });
+  myList.splice((todos - 1), 1);
+}
+
+function reset() {
+  fs.writeFile('list.txt', '', (data, err) => {
+    if (data) {
+      console.log('There should be no data here!');
+    }
+    else if (err) {
+      throw err;
+      console.log('Failed to reset your list!');
+    }
+  });
 }
 
 const command = process.argv[2];
@@ -50,7 +74,13 @@ function main() {
     console.log(readList);
   }
   else if (command === 'add') {
-    addList(task);
+    addList(listArray, task);
+  }
+  else if (command === 'remove') {
+    removeList(listArray, task);
+  }
+  else if (command === 'reset') {
+    reset();
   }
 }
 main();
