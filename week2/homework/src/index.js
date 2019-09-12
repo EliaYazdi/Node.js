@@ -17,38 +17,34 @@ const readList = fs.readFileSync('list.txt', 'utf8', (data, err) => {
   }
   else if (err) {
     throw err;
-    console.log('failed!');
   }
 });
-const listArray = [];
-listArray.push(readList);
-listArray.join('\n');
-
-function addList(myList, todos) {
-  fs.writeFile('list.txt', myList, (data, err) => {
+// const listArray = [];
+// listArray.push(readList);
+// listArray.join('\n');
+let listArray = readList.split('\n').filter(i => i.length >= 1);
+function addList(todos) {
+  listArray.push(todos);
+  fs.writeFile('list.txt', listArray.join('\n'), (data, err) => {
     if (data) {
       console.log('New task added!');
     }
     else if (err) {
       throw err;
-      console.log('Failed!');
     }
   });
-  myList.push(todos);
-  return listArray.join('\r\n');
 }
 
-function removeList(myList, todos) {
-  fs.writeFile('list.txt', myList, (data, err) => {
+function removeList(todos) {
+  listArray.splice((todos - 1), 1);
+  fs.writeFile('list.txt', listArray.join('\n'), (data, err) => {
     if (data) {
       console.log('New task added!');
     }
     else if (err) {
       throw err;
-      console.log('Failed!');
     }
   });
-  myList.splice((todos - 1), 1);// doesn't work well!
 }
 
 function reset() {
@@ -58,7 +54,6 @@ function reset() {
     }
     else if (err) {
       throw err;
-      console.log('Failed to reset your list!');
     }
   });
 }
@@ -74,10 +69,11 @@ function main() {
     console.log(readList);
   }
   else if (command === 'add') {
-    addList(listArray, task);
+    // console.log('add', listArray, 'jgkfjg');
+    addList(task);
   }
   else if (command === 'remove') {
-    removeList(listArray, task);
+    removeList(task);
   }
   else if (command === 'reset') {
     reset();
