@@ -74,6 +74,12 @@ class Todo {
       );
     });
   }
+  async clearList() {
+    const todos         = await this.read();
+    let list = [todos];
+    list = [];
+    return this._save(list);
+  }
 }
 
 module.exports = Todo;
