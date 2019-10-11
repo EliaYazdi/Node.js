@@ -1,0 +1,8 @@
+Hello and Welcome to my first CLI app!
+This little application is like a notebook where you can write your daily tasks.
+
+Here is a guide for application commands:
+
+1. To add to your todo list >>> type 'add'
+2. To view the todo list >>> type 'list'
+3. To remove a task from the list >>> type 'remove'
